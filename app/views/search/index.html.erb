@@ -27,12 +27,14 @@
     <% end %>
     $(function(){  
         $(".rumble").jrumble({
-          speed: 120
+          speed: 100
         });
-        $(".rumble").hover(function(){
-          $(this).trigger('startRumble');
-        }, function(){
-          $(this).trigger('stopRumble');
+        $('.rumble').mouseenter(function(){ 
+          var self = $(this);
+          self.trigger('startRumble');
+          setTimeout(function() { 
+          self.trigger('stopRumble'); 
+          }, 300);
         });
       });
      var client = new ZeroClipboard($('.copy1') );
