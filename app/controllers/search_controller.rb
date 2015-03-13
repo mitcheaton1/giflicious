@@ -5,9 +5,10 @@ class SearchController < ApplicationController
   def index
     flash[:gifs] = nil
     @user = User.new
-    generate_background
+    @background_gif = generate_background
     unless params[:user].nil? || params[:user][:gif_search_query].empty?
-      process_query
+      @gifs_array = process_query
+      flash[:gifs] = "gif results"
     end
   end
 
@@ -28,11 +29,11 @@ class SearchController < ApplicationController
     gif_hash["data"].each do |gif|
       gif_static = gif["images"]["fixed_height_still"]["url"]
       gif_motion = gif["images"]["fixed_height"]["url"]
+      gif_id = gif["id"].to_s
       array << {gif_static: gif_static, 
-       gif_motion: gif_motion}
+       gif_motion: gif_motion, gif_id: gif_id}
     end
-    @gifs_array = array.shuffle.shuffle.shuffle
-    flash[:gifs] = "gif results"
+    array.shuffle
   end
 
   def generate_background
@@ -40,7 +41,7 @@ class SearchController < ApplicationController
     resp = Net::HTTP.get_response(URI.parse(url))
     buffer = resp.body
     returned_result = JSON.parse(buffer)
-    @background_gif = {background: returned_result["data"]["image_url"], original: returned_result["data"]["image_original_url"] }
+    {background: returned_result["data"]["image_url"], original: returned_result["data"]["image_original_url"] }
   end
 
 end
