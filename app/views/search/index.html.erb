@@ -8,7 +8,7 @@
     <div class="gifs">
     <% @gifs_array.each do |picture| %>
      
-    <input type="image" id="<%= picture[:gif_id] %>" src="<%= picture[:gif_static] %>" name="saveForm" class="copy" data-clipboard-text=<%= picture[:gif_motion] %> title="Click to copy." height="200" width="300" style="PADDING-LEFT: 10px; PADDING-TOP: 10px"> 
+    <input type="image" id="<%= picture[:gif_id] %>" src="<%= picture[:gif_static] %>" name="saveForm" class="rumble" data-clipboard-text=<%= picture[:gif_motion] %> title="Click to copy." height="200" width="300" style="PADDING-LEFT: 10px; PADDING-TOP: 10px"> 
     <!--  <img id="<%= picture[:gif_id] %>"  class="copy" src=<%= picture[:gif_static] %> data-clipboard-text=<%= picture[:gif_motion] %> title="Click to copy." height="200" width="300" style="PADDING-LEFT: 10px; PADDING-TOP: 10px"> --> 
    <% end %>
     </div>
@@ -24,17 +24,17 @@
             }                         
           );
        });
-      $(function(){  
-        $("#<%=picture[:gif_id]%>").jrumble({
+    <% end %>
+    $(function(){  
+        $(".rumble").jrumble({
           speed: 120
         });
-        $("#<%=picture[:gif_id]%>").hover(function(){
+        $(".rumble").hover(function(){
           $(this).trigger('startRumble');
         }, function(){
           $(this).trigger('stopRumble');
         });
       });
-    <% end %>
      var client = new ZeroClipboard($('.copy1') );
     </script>
   <% end %>	
