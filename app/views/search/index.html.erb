@@ -1,0 +1,36 @@
+<script type="text/javascript" src="ZeroClipboard.js"></script>
+
+<%= render "shared/search_nav" %>
+
+<% if flash[:gifs].present?  %>
+  <div class="gif_container">
+  <% number = 1%>
+    <% @gifs_array.each do |picture| %>
+    	<img id="gif<%= + number%>" class="button" src=<%= picture[:gif_static] %> data-clipboard-text=<%= picture[:gif_motion] %> title="Click to copy."  height="200" width="300" style="PADDING-LEFT: 10px; PADDING-TOP: 10px">
+    	<% number = number + 1%>
+   <% end %>
+  <% number = 1%>
+  <script type="text/javascript">
+    <% @gifs_array.each do |picture| %>
+      $(function() {
+        $("#gif<%= + number%>").hover(
+          function() {
+            $(this).attr("src", "<%= picture[:gif_motion] %>");
+            },
+            function() {
+                $(this).attr("src", "<%= picture[:gif_static] %>");
+            }                         
+          );
+       });
+      
+    <% number = number + 1%>
+    <% end %>
+      var client = new ZeroClipboard( document.getElementById('gif1') );
+
+    </script>
+    </script>
+	<% end %>	
+</div>
+</script>
+</div>
+
