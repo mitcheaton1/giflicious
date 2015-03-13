@@ -6,9 +6,10 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+
 }
 </style>
-<img id="logo" src="/images/cool_logo1.png">
+<img class="logo" src="/images/cool_logo1.png">
 <div class="text_field">
 <%= simple_form_for @user, url: "/" do |f| %>
   <%= f.input :gif_search_query, label: false %>
@@ -16,8 +17,7 @@ body {
 <div class="submit">  
   <%= f.button :submit, 'Find Gifs', :class => 'btn-danger' %>
 <% end %>
-
-<button type="button" class="btn btn-danger" id="background_gif"  data-clipboard-text= <%= @background_gif[:original] %> title="Click to copy.">Copy Background GIF</button>
+<button type="button" class="btn btn-danger" id="background_gif"  data-clipboard-text= <%= @background_gif[:original] %>>Copy Background GIF</button>
 <script type="text/javascript">
 var client = new ZeroClipboard( document.getElementById('background_gif') );
 </script>
