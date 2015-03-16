@@ -1,19 +1,24 @@
 <script src="js/jquery-1.7.2.min.js"></script>
+<script src="http://vast-engineering.github.io/jquery-popup-overlay/jquery.popupoverlay.js"></script>
 <script src="js/jquery.jrumble.1.3.min.js"></script> 
 <div class="container">
   <div class="container1">
+
   <%= render "shared/search_nav" %>
+  
   <% if flash[:gifs].present?  %>
+
   <div class="gif_container">
     <div class="gifs">
     <% @gifs_array.each do |picture| %>
      
-    <input type="image" id="<%= picture[:gif_id] %>" src="<%= picture[:gif_static] %>" name="saveForm" class="rumble" data-clipboard-text=<%= picture[:gif_motion] %> title="Click to copy." height="200" width="300" style="PADDING-LEFT: 10px; PADDING-TOP: 10px"> 
-    <!--  <img id="<%= picture[:gif_id] %>"  class="copy" src=<%= picture[:gif_static] %> data-clipboard-text=<%= picture[:gif_motion] %> title="Click to copy." height="200" width="300" style="PADDING-LEFT: 10px; PADDING-TOP: 10px"> --> 
+    <input type="image" id="<%= picture[:gif_id] %>" src="<%= picture[:gif_static] %>" name="saveForm" class="rumble" class="my_popup_open" data-clipboard-text="<%= picture[:gif_motion] %>" height="200" width="300" style="PADDING-LEFT: 10px; PADDING-TOP: 10px"> 
    <% end %>
     </div>
+
   <script type="text/javascript">
     <% @gifs_array.each do |picture| %>
+
       $(function() {
         $("#<%=picture[:gif_id]%>").hover(
           function() {
@@ -22,10 +27,35 @@
           function() {
             $(this).attr("src", "<%= picture[:gif_static] %>");
             }                         
-          );
-       });
+        );
+      });
+
+      $(function() {
+        $('.rumble').click(
+          function() {
+            $(this).popup({  });
+            }
+        );
+      });
     <% end %>
+
     $(function(){  
+        $(".rumble").jrumble({
+          speed: 120
+        });
+        $(".rumble").hover(function(){
+          $(this).trigger('startRumble');
+        }, function(){
+          $(this).trigger('stopRumble');
+        });
+      });
+     
+    </script>
+  <% end %>	
+</div>
+<script type="text/javascript" src="js/jquery.jrumble.1.3.js"></script>
+
+<!-- $(function(){  
         $(".rumble").jrumble({
           speed: 100
         });
@@ -33,12 +63,7 @@
           var self = $(this);
           self.trigger('startRumble');
           setTimeout(function() { 
-          self.trigger('stopRumble'); 
-          }, 300);
+              self.trigger('stopRumble'); 
+          }, 2000000000);
         });
-      });
-     var client = new ZeroClipboard($('.copy1') );
-    </script>
-  <% end %>	
-</div>
-<script type="text/javascript" src="js/jquery.jrumble.1.3.js"></script>
+      }); -->
